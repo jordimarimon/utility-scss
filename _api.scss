@@ -1,0 +1,122 @@
+@use "sass:string";
+@use "sass:list";
+@use "sass:meta";
+@use "sass:map";
+
+@use "mixins/breakpoints";
+@use "specials";
+@use "default";
+@use "factory";
+
+
+/**
+ * Sets the css properties of the utility class
+ */
+@mixin write-css-properties($index, $css-properties, $css-values) {
+  @each $css-property in $css-properties {
+    $_css-property-values: map.get($css-values, $css-property);
+    $_css-value: list.nth($_css-property-values, $index);
+
+    #{$css-property}: if(meta.type-of($_css-value) == "string", string.unquote($_css-value), $_css-value);
+  }
+}
+
+/*
+ * Creates the CSS classes of the utility
+ */
+@mixin generate-utility($utility, $has-parent: true) {
+  $_class-prefix: map.get($utility, "class");
+  $_css-properties: if(map.has-key($utility, "properties"), map.get($utility, "properties"), ());
+  $_css-values: if(map.has-key($utility, "values"), map.get($utility, "values"), ());
+  $_class-suffixes: if(map.has-key($utility, "suffixes"), map.get($utility, "suffixes"), ());
+
+  @for $i from 1 through list.length($_class-suffixes) {
+    $_class-suffix: list.nth($_class-suffixes, $i);
+
+    @if (string.length($_class-suffix) != 0) {
+      @if (string.length($_class-prefix) != 0) { // case for classes with a defined class prefix
+        &-#{"" + $_class-suffix} {
+          @include write-css-properties($i, $_css-properties, $_css-values);
+        }
+      } @else if ($has-parent) { // case for responsive classes with no class prefix
+        &#{"" + $_class-suffix} {
+          @include write-css-properties($i, $_css-properties, $_css-values);
+        }
+      } @else { // case for classes without class prefix and are not responsive
+        .#{"" + $_class-suffix} {
+          @include write-css-properties($i, $_css-properties, $_css-values);
+        }
+      }
+    } @else {
+      @include write-css-properties($i, $_css-properties, $_css-values);
+    }
+  }
+}
+
+/**
+ * Creates the responsive utility classes for all breakpoints
+ */
+@mixin generate-responsive-utility($utility, $breakpoint-name) {
+  $_variants: map.get($utility, "variants");
+  $_responsive: if(map.has-key($_variants, "responsive"), map.get($_variants, "responsive"), false);
+
+  @if ($_responsive) {
+    $_class-prefix: map.get($utility, "class");
+    $_prefix-with-breakpoint: breakpoints.create($breakpoint-name, $_class-prefix);
+
+    .#{$_prefix-with-breakpoint} {
+      @include generate-utility($utility);
+    }
+  }
+}
+
+/*
+ * Mixin to generate all the utilities based on a configuration
+ *
+ * @param config - The configuration made of maps specifying the suffix and the values
+ */
+@mixin generate-utilities($config: default) {
+  // Retrieve the options configured by the developer
+  $_options: meta.module-variables($config);
+
+  // Retrieve the defined breakpoints so we can generate the responsive utilities
+  $_breakpoints: map.get($_options, "breakpoints");
+
+  // Create the utility objects/metadata needed for creating the utility classes
+  $_utilities: factory.create-utilities($_options);
+
+  // Generate the normal utilities
+  @each $utility in $_utilities {
+    $_class-prefix: map.get($utility, "class");
+
+    @if (string.length($_class-prefix) != 0) {
+      .#{"" + $_class-prefix} {
+        @include generate-utility($utility);
+      }
+    } @else {
+      @include generate-utility($utility, false);
+    }
+  }
+
+  // Generate the special utilities
+  @include specials.create($_options);
+
+  @each $breakpoint-name, $breakpoint-value in $_breakpoints {
+
+    @include breakpoints.media-up($breakpoint-value) {
+
+      // Generate the responsive variants of normal utilities
+      @each $utility in $_utilities {
+        @include generate-responsive-utility($utility, $breakpoint-name);
+      }
+
+      // Generate the responsive variants of special utilities
+      @include specials.create($_options, $breakpoint-name);
+
+    }
+  }
+}
+
+// The utility classes will be generated in the "dist/utilities.css"
+// For debugging purposes, uncomment the following line.
+//@include generate-utilities();

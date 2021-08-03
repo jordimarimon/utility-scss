@@ -1,0 +1,108 @@
+@use "sass:string";
+@use "sass:math";
+@use "sass:meta";
+@use "sass:map";
+
+/**
+ * Adds text overflow styling
+ */
+@mixin text-overflow($max-width: unset, $type: ellipsis) {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: $type;
+
+  @if ($max-width != unset) {
+    max-width: $max-width;
+  }
+}
+
+/**
+ * Makes sure that "transform" animations don't overflow
+ * elements with a "border-radius".
+ */
+@mixin fix-radial-overflow-webkit() {
+  // In Safari, when we use animations with "transform", the "border-radius"
+  // is not taken into account and the animation overflows like if there
+  // wasn't any "border-radius" ("overflow: hidden" doesn't seem to work -> Webkit BUG, see link below).
+  // See: https://gist.github.com/ayamflow/b602ab436ac9f05660d9c15190f4fd7b
+  // See: https://bugs.webkit.org/show_bug.cgi?id=77572
+
+  // This will hide also any "box-shadow" set in the HTML element... use it with caution!!
+
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+}
+
+/**
+ * For adding animations when user has no preferences about it.
+ */
+@mixin animation() {
+  // More details about `prefers-reduced-motion` in https://web.dev/prefers-reduced-motion/
+  // Animations should be disabled by default and only enabled as an enhancement to UX if
+  // user has no preferences about it.
+  @media (prefers-reduced-motion: no-preference) {
+    @content;
+  }
+}
+
+/**
+ * For setting specific ":focus" styles that are related to keyboard accessibility.
+ */
+@mixin hover() {
+  // Used to enable hover/focus effects in devices where hover is supported
+  // (this way we can disable this effects in mobile devices).
+  // The approach is "mobile first". Effects are disable by default and only
+  // enabled when hover is supported.
+  @media (hover: hover) {
+    @content;
+  }
+}
+
+/**
+ * Styles user agent scrollbar
+ *
+ * See the following links for more information:
+ *    https://stackoverflow.com/a/14150577
+ *    https://stackoverflow.com/questions/6165472/custom-css-scrollbar-for-firefox/54101063#54101063
+ */
+@mixin scrollbar($size, $color, $background: transparent) {
+  // Firefox
+  scrollbar-width: $size; // vertical scrollbar
+  scrollbar-height: $size; // horizontal scrollbar
+  scrollbar-color: $color $background;
+
+  // Webkit based browsers (Chrome -> Blink, Safari, Edge, Opera, etc...)
+  &::-webkit-scrollbar {
+    height: $size; // horizontal scrollbar
+    width: $size; // vertical scrollbar
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $background;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $color;
+  }
+}
+
+/**
+ * Makes sure an Element preserves the aspect ratio specified
+ */
+@mixin aspect-ratio($width: 1, $height: 1) {
+  // TODO (Jordi M.) Keep an eye on the native support:
+  // https://caniuse.com/?search=aspect-ratio
+  // https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio
+
+  position: relative;
+  padding-bottom: #{math.div($height, $width) * 100%};
+
+  & > * {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}

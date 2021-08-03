@@ -1,0 +1,90 @@
+@use "sass:meta";
+@use "sass:list";
+@use "sass:map";
+
+@use "option-to-css";
+@use "mixins/core";
+
+/*
+ * Creates the utilities objects/metadata based on the configuration options.
+ *
+ * A utility object/metadata is defined by the following structure:
+ *
+ *    {
+ *
+ *      "properties": List of CSS properties that the utility styles.
+ *
+ *      "class": The CSS class name prefix to set.
+ *
+ *      "suffixes": The CSS class suffixes.
+ *
+ *      "values": A map. Each key in the map is the css property to style and each value is
+ *                the list of values to set to the property for each suffix.
+ *
+ *      "variants": {
+ *
+ *        "responsive": Boolean indicating if we need to create the responsive variant for the given utility.
+ *
+ *      }
+ *
+ *    }
+ *
+ * @param $options - The configuration options
+ *
+ * @returns The utilities metadata used to generate the CSS classes
+ */
+@function create-utilities($options) {
+  $_utilities: ();
+
+  // Options that should be ignored (don't generate utility classes from them)
+  $_white-list: ("breakpoints");
+
+  @each $option-key, $option-value in $options {
+
+    @if (list.index($_white-list, $option-key) == null) {
+
+      @if (not map.has-key(option-to-css.$map, $option-key)) {
+        @error "Invalid option provided.";
+      }
+
+      // Metadata needed to create the utilities associated with this configuration option
+      $_utility-metadata: map.get(option-to-css.$map, $option-key);
+
+      // Flat the option values in case there are nested maps
+      $_flatten-option-value: core.flat-map($option-value);
+
+      // Create each utility associated with this configuration option
+      @each $class-prefix, $css-properties in $_utility-metadata {
+
+        // We have two types of utilities:
+        //   (1) Utility styles multiple css properties
+        //   (2) Utility styles a single css property
+
+        $_values: ();
+        $_suffixes: null;
+
+        @each $css-property in $css-properties {
+          $_values: map.merge(($css-property: map.values($_flatten-option-value)), $_values);
+
+          @if ($_suffixes == null) {
+            $_suffixes: map.keys($_flatten-option-value);
+          }
+        }
+
+        $_utility: (
+          "properties": $css-properties,
+          "class": $class-prefix,
+          "suffixes": $_suffixes,
+          "values": $_values,
+          "variants": (
+            "responsive": true,
+          ),
+        );
+
+        $_utilities: list.append($_utilities, $_utility, $separator: comma);
+      }
+    }
+  }
+
+  @return $_utilities;
+}

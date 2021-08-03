@@ -1,0 +1,118 @@
+@use "sass:map";
+
+@use "mixins/breakpoints";
+@use "mixins/animations";
+@use "mixins/effects";
+@use "mixins/layout";
+@use "mixins/utils";
+
+/**
+ * SCSS currently doesn't support mixins as first-class citizens.
+ * See: https://github.com/sass/sass/issues/626
+ *
+ * We need to generate the utility classes that depend on mixins manually.
+ */
+@mixin create($options, $breakpoint: false) {
+
+  ///////////////////////////////////////////////////////
+  //////////// CHILDREN SPACES
+  ///////////////////////////////////////////////////////
+
+  $_spacings: map.get($options, "spacings");
+  $_class: if($breakpoint, breakpoints.create($breakpoint, "space"), "space");
+
+  .#{$_class} {
+    @each $type, $value in $_spacings {
+      @if ($value != auto) {
+        &-#{$type} {
+          @include layout.gap($value);
+        }
+
+        &-x-#{$type} {
+          & > * + * {
+            margin-left: $value;
+          }
+        }
+
+        &-y-#{$type} {
+          & > * + * {
+            margin-top: $value;
+          }
+        }
+      }
+    }
+  }
+
+  ///////////////////////////////////////////////////////
+  //////////// FONT SMOOTHING
+  ///////////////////////////////////////////////////////
+
+  $_class: if($breakpoint, breakpoints.create($breakpoint, "antialiased"), "antialiased");
+
+  .#{$_class} {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    &-subpixel {
+      -webkit-font-smoothing: auto;
+      -moz-osx-font-smoothing: auto;
+    }
+  }
+
+  ///////////////////////////////////////////////////////
+  //////////// TEXT OVERFLOW
+  ///////////////////////////////////////////////////////
+
+  $_class: if($breakpoint, breakpoints.create($breakpoint, "truncate"), "truncate");
+
+  .#{$_class} {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+
+  ///////////////////////////////////////////////////////
+  //////////// SKELETON LOADING EFFECT
+  ///////////////////////////////////////////////////////
+
+  $_class: if($breakpoint, breakpoints.create($breakpoint, "skeleton"), "skeleton");
+
+  .#{$_class} {
+    @include effects.skeleton();
+
+    &-pulse {
+      @include effects.skeleton(true);
+    }
+  }
+
+  ///////////////////////////////////////////////////////
+  //////////// ANIMATIONS
+  ///////////////////////////////////////////////////////
+
+  $_class: if($breakpoint, breakpoints.create($breakpoint, "animate"), "animate");
+
+  .#{$_class} {
+    &-none {
+      animation: none;
+    }
+
+    @include utils.animation() {
+      &-spin {
+        @include animations.spin();
+      }
+
+      &-ping {
+        @include animations.ping();
+      }
+
+      &-pulse {
+        @include animations.pulse();
+      }
+
+      &-bounce {
+        @include animations.bounce();
+      }
+    }
+  }
+}

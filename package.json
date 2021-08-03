@@ -1,0 +1,30 @@
+{
+  "name": "utility-scss",
+  "version": "0.0.1",
+  "description": "SCSS utility first class generator",
+  "author": "Jordi Marimon Palarea",
+  "homepage": "https://github.com/jordimarimon/utility-scss",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://git@github.com:jordimarimon/utility-scss.git"
+  },
+  "bin": {
+    "utility-scss": "./bin/index.js"
+  },
+  "scripts": {
+    "dev": "mkdir -p dist && node ./scripts/build-styles.js './_api.scss'",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
+  },
+  "devDependencies": {
+    "boxen": "^5.0.1",
+    "chalk": "^4.1.2",
+    "clear": "^0.1.0",
+    "commander": "^8.1.0",
+    "conventional-changelog-cli": "^2.1.1",
+    "figlet": "^1.5.0",
+    "glob": "^7.1.7",
+    "purgecss": "^4.0.3",
+    "sass": "^1.36.0"
+  }
+}

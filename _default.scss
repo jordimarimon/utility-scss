@@ -1,0 +1,684 @@
+///////////////////////////////////////////////////////////////////////////////
+//////////////////////// RESPONSIVENESS
+///////////////////////////////////////////////////////////////////////////////
+
+$breakpoints: (
+  "xs": 30em, // 480px
+  "sm": 40em, // 640px
+  "md": 48em, // 768px
+  "lg": 64em, // 1024px
+  "xl": 80em, // 1280px
+);
+
+///////////////////////////////////////////////////////////////////////////////
+//////////////////////// LAYOUT
+///////////////////////////////////////////////////////////////////////////////
+
+$displays: (
+  "block": block,
+  "inline-block": inline-block,
+  "inline": inline,
+  "flex": flex,
+  "inline-flex": inline-flex,
+  "table": table,
+  "inline-table": inline-table,
+  "grid": grid,
+  "inline-grid": inline-grid,
+  "hidden": none,
+);
+
+$floats: (
+  "right": right,
+  "left": left,
+);
+
+$clears: (
+  "left": left,
+  "right": right,
+  "both": both,
+);
+
+$isolations: (
+  "": isolate,
+  "auto": auto,
+);
+
+$object-fits: (
+  "contain": contain,
+  "cover": cover,
+  "fill": fill,
+  "none": none,
+  "scale-down": scale-down,
+);
+
+$object-positions: (
+  "bottom": bottom,
+  "center": center,
+  "left": left,
+  "left-bottom": left bottom,
+  "left-top": left top,
+  "right": right,
+  "right-bottom": right bottom,
+  "right-top": right top,
+  "top": top,
+);
+
+$overflows: (
+  "auto": auto,
+  "hidden": hidden,
+  "visible": visible,
+  "scroll": scroll,
+);
+
+$overflow-webkit: (
+  "touch": touch,
+);
+
+$overscroll-behaviours: (
+  "auto": auto,
+  "contain": contain,
+  "none": none,
+);
+
+$positions: (
+  "static": static,
+  "fixed": fixed,
+  "absolute": absolute,
+  "relative": relative,
+  "sticky": sticky,
+);
+
+$offsets: (
+  "0": 0,
+  "1": 0.25rem,
+  "2": 0.5rem,
+  "4": 1rem,
+);
+
+$visibilities: (
+  "visible": visible,
+  "invisible": hidden,
+);
+
+$z-indexes: (
+  "0": 0,
+  "10": 10,
+  "20": 20,
+  "30": 30,
+  "40": 40,
+  "50": 40,
+);
+
+///////////////////////////////////////////////////////////////////////////////
+//////////////////////// FLEXBOX AND GRID
+///////////////////////////////////////////////////////////////////////////////
+
+$flex-directions: (
+  "row": row,
+  "row-reverse": row-reverse,
+  "col": column,
+  "col-reverse": column-reverse,
+);
+
+$flex-wraps: (
+  "wrap": wrap,
+  "wrap-reverse": wrap-reverse,
+  "nowrap": nowrap,
+);
+
+$flex: (
+  "1": 1 1 0,
+  "auto": 1 1 auto,
+  "initial": 0 1 auto,
+  "static": 0 0 auto,
+  "none": none,
+);
+
+$flex-grows: (
+  "": 1,
+  "0": 0,
+);
+
+$flex-shrinks: (
+  "": 1,
+  "0": 0,
+);
+
+$flex-orders: (
+  "0": 0,
+  "1": 1,
+  "2": 2,
+  "3": 3,
+  "4": 4,
+  "5": 5,
+);
+
+$grid-templates: (
+  "none": none,
+  "1": repeat(1, minmax(0, 1fr)),
+  "2": repeat(2, minmax(0, 1fr)),
+  "3": repeat(3, minmax(0, 1fr)),
+  "4": repeat(4, minmax(0, 1fr)),
+  "5": repeat(5, minmax(0, 1fr)),
+  "6": repeat(6, minmax(0, 1fr)),
+  "7": repeat(7, minmax(0, 1fr)),
+  "8": repeat(8, minmax(0, 1fr)),
+  "9": repeat(9, minmax(0, 1fr)),
+  "10": repeat(10, minmax(0, 1fr)),
+  "11": repeat(11, minmax(0, 1fr)),
+  "12": repeat(12, minmax(0, 1fr)),
+);
+
+$grid-spans: (
+  "auto": auto,
+  "full": "1 / -1", // Needed as a string because if not, SCSS will throw a warning that it should be "math.div"
+  "1": span 1 / span 1,
+  "2": span 2 / span 2,
+  "3": span 3 / span 3,
+  "4": span 4 / span 4,
+  "5": span 5 / span 5,
+  "6": span 6 / span 6,
+  "7": span 7 / span 7,
+  "8": span 8 / span 8,
+  "9": span 9 / span 9,
+  "10": span 10 / span 10,
+  "11": span 11 / span 11,
+  "12": span 12 / span 12,
+);
+
+$grid-extremes: (
+  "auto": auto,
+  "1": 1,
+  "2": 2,
+  "3": 3,
+  "4": 4,
+  "5": 5,
+  "6": 6,
+  "7": 7,
+  "8": 8,
+  "9": 9,
+  "10": 10,
+  "11": 11,
+  "12": 12,
+);
+
+$grid-auto-flows: (
+  "row": row,
+  "col": column,
+  "row-dense": row dense,
+  "col-dense": column dense,
+);
+
+$grid-auto-axis: (
+  "auto": auto,
+  "min": min-content,
+  "max": max-content,
+  "fr": minmax(0, 1fr),
+);
+
+$contents: (
+  "start": flex-start,
+  "end": flex-end,
+  "center": center,
+  "between": space-between,
+  "around": space-around,
+  "evenly": space-evenly,
+);
+
+$justify-items: (
+  "auto": auto,
+  "start": start,
+  "end": end,
+  "center": center,
+  "stretch": stretch,
+);
+
+$align-items: (
+  "auto": auto,
+  "start": flex-start,
+  "end": flex-end,
+  "center": center,
+  "baseline": baseline,
+  "stretch": stretch,
+);
+
+$place-contents: (
+  "start": start,
+  "end": end,
+  "center": center,
+  "between": space-between,
+  "around": space-around,
+  "evenly": space-evenly,
+  "stretch": stretch,
+);
+
+///////////////////////////////////////////////////////////////////////////////
+//////////////////////// SPACINGS
+///////////////////////////////////////////////////////////////////////////////
+
+$spacings: (
+  "auto": auto,
+  "0": 0,
+  "0\\.5": 0.125rem,
+  "1": 0.25rem,
+  "1\\.5": 0.375rem,
+  "2": 0.5rem,
+  "2\\.5": 0.625rem,
+  "3": 0.75rem,
+  "3\\.5": 0.875rem,
+  "4": 1rem,
+  "5": 1.25rem,
+  "6": 1.5rem,
+  "7": 1.75rem,
+  "8": 2rem,
+  "9": 2.25rem,
+  "10": 2.5rem,
+  "11": 2.75rem,
+  "12": 3rem,
+  "14": 3.5rem,
+  "16": 4rem,
+);
+
+///////////////////////////////////////////////////////////////////////////////
+//////////////////////// SIZING
+///////////////////////////////////////////////////////////////////////////////
+
+$widths: (
+  "auto":auto,
+  "0": 0px,
+  "1\\/12": 8.333333%,
+  "1\\/6": 16.666667%,
+  "1\\/5": 20%,
+  "1\\/4": 25%,
+  "1\\/3": 33.333333%,
+  "2\\/5": 40%,
+  "1\\/2": 50%,
+  "3\\/5": 60%,
+  "2\\/3": 66.666667%,
+  "3\\/4": 75%,
+  "4\\/5": 80%,
+  "full": 100%,
+  "screen": 100vw,
+  "min": min-content,
+  "max": max-content,
+);
+
+$min-widths: (
+  "0": 0px,
+  "full": 100%,
+  "screen": 100vw,
+  "min": min-content,
+  "max": max-content,
+);
+
+$max-widths: (
+  "0": 0px,
+  "full": 100%,
+  "screen": 100vw,
+  "min": min-content,
+  "max": max-content,
+);
+
+$heights: (
+  "auto":auto,
+  "0": 0px,
+  "1\\/12": 8.333333%,
+  "1\\/6": 16.666667%,
+  "1\\/5": 20%,
+  "1\\/4": 25%,
+  "1\\/3": 33.333333%,
+  "2\\/5": 40%,
+  "1\\/2": 50%,
+  "3\\/5": 60%,
+  "2\\/3": 66.666667%,
+  "3\\/4": 75%,
+  "4\\/5": 80%,
+  "full": 100%,
+  "screen": 100vh,
+);
+
+$min-heights: (
+  "0": 0px,
+  "full": 100%,
+  "screen": 100vh,
+);
+
+$max-heights: (
+  "0": 0px,
+  "full": 100%,
+  "screen": 100vh,
+);
+
+///////////////////////////////////////////////////////////////////////////////
+//////////////////////// TYPOGRAPHY
+///////////////////////////////////////////////////////////////////////////////
+
+$font-sizes: (
+  "xs": 0.75rem,
+  "sm": 0.875rem,
+  "base": 1rem,
+  "lg": 1.125rem,
+  "xl": 1.25rem,
+  "2xl": 1.5rem,
+  "3xl": 1.875rem,
+  "4xl": 2.25rem,
+  "5xl": 3rem,
+);
+
+$font-weights: (
+  "thin": 100,
+  "extralight": 200,
+  "light": 300,
+  "normal": 400,
+  "medium": 500,
+  "semibold": 600,
+  "bold": 700,
+  "extrabold": 800,
+  "black": 900,
+);
+
+$letter-spacings: (
+  "tighter": -0.05em,
+  "tight": -0.025em,
+  "normal": 0em,
+  "wide": 0.025em,
+  "wider": 0.05em,
+  "widest": 0.1em,
+);
+
+$line-heights: (
+  "none": 1,
+  "tight": 1.25,
+  "snug": 1.375,
+  "normal": 1.5,
+  "relaxed": 1.625,
+  "loose": 2,
+);
+
+$font-styles: (
+  "italic": italic,
+  "not-italic": normal,
+);
+
+$list-style-types: (
+  "none": none,
+  "disc": disc,
+  "decimal": decimal,
+);
+
+$list-style-positions: (
+  "inside": inside,
+  "outside": outside,
+);
+
+$text-alignments: (
+  "left": left,
+  "center": center,
+  "right": right,
+  "justify": justify,
+);
+
+$text-colors: (
+  "white": hsl(0, 0%, 100%),
+  "black": hsl(0, 0%, 0%),
+  "current": currentColor,
+  "primary": (
+    "100": hsl(4, 100%, 97%),
+    "200": hsl(4, 100%, 87%),
+    "300": hsl(4, 100%, 67%),
+    "400": hsl(4, 100%, 57%),
+    "500": hsl(4, 100%, 50%),
+    "600": hsl(4, 100%, 47%),
+    "700": hsl(4, 100%, 37%),
+    "800": hsl(4, 100%, 17%),
+  ),
+  "gray": (
+    "100": hsl(0, 0%, 90%),
+    "200": hsl(0, 0%, 85%),
+    "300": hsl(0, 0%, 75%),
+    "400": hsl(0, 0%, 60%),
+    "500": hsl(0, 0%, 40%),
+    "600": hsl(0, 0%, 30%),
+    "700": hsl(0, 0%, 20%),
+    "800": hsl(0, 0%, 10%),
+  ),
+);
+
+$text-decorations: (
+  "underline": underline,
+  "line-through": line-through,
+  "no-underline": none,
+);
+
+$text-transforms: (
+  "uppercase": uppercase,
+  "lowercase": lowercase,
+  "capitalize": capitalize,
+  "normal-case": none,
+);
+
+$text-overflows: (
+  "ellipsis": ellipsis,
+  "clip": clip,
+);
+
+$vertical-alignments: (
+  "baseline": baseline,
+  "top": top,
+  "middle": middle,
+  "bottom": bottom,
+  "text-top": text-top,
+  "text-bottom": text-bottom,
+);
+
+$whitespaces: (
+  "normal": normal,
+  "nowrap": nowrap,
+  "pre": pre,
+  "pre-line": pre-line,
+  "pre-wrap": pre-wrap,
+);
+
+$word-breaks: (
+  "normal": normal,
+  "all": all,
+);
+
+$overflow-wraps: (
+  "normal": normal,
+  "break-word": break-word,
+);
+
+///////////////////////////////////////////////////////////////////////////////
+//////////////////////// BACKGROUNDS
+///////////////////////////////////////////////////////////////////////////////
+
+$background-colors: (
+  "white": hsl(0, 0%, 100%),
+  "black": hsl(0, 0%, 0%),
+  "transparent": transparent,
+  "primary": (
+    "100": hsl(4, 100%, 97%),
+    "200": hsl(4, 100%, 87%),
+    "300": hsl(4, 100%, 67%),
+    "400": hsl(4, 100%, 57%),
+    "500": hsl(4, 100%, 50%),
+    "600": hsl(4, 100%, 47%),
+    "700": hsl(4, 100%, 37%),
+    "800": hsl(4, 100%, 17%),
+  ),
+  "gray": (
+    "100": hsl(0, 0%, 90%),
+    "200": hsl(0, 0%, 85%),
+    "300": hsl(0, 0%, 75%),
+    "400": hsl(0, 0%, 60%),
+    "500": hsl(0, 0%, 40%),
+    "600": hsl(0, 0%, 30%),
+    "700": hsl(0, 0%, 20%),
+    "800": hsl(0, 0%, 10%),
+  ),
+);
+
+$background-clips: (
+  "border": border-box,
+  "padding": padding-box,
+  "content": content-box,
+  "text": text,
+);
+
+$background-positions: (
+  "bottom": bottom,
+  "center": center,
+  "left": left,
+  "left-bottom": left bottom,
+  "left-top": left top,
+  "right": right,
+  "right-bottom": right bottom,
+  "right-top": right top,
+  "top": top,
+);
+
+$background-repeats: (
+  "repeat": repeat,
+  "no-repeat": no-repeat,
+  "repeat-x": repeat-x,
+  "repeat-y": repeat-y,
+  "repeat-round": round,
+  "repeat-space": space,
+);
+
+$background-sizes: (
+  "auto": auto,
+  "cover": cover,
+  "contain": contain,
+);
+
+///////////////////////////////////////////////////////////////////////////////
+//////////////////////// BORDERS
+///////////////////////////////////////////////////////////////////////////////
+
+$border-radius: (
+  "none": none,
+  "0": 0,
+  "1\\/2": 50%,
+);
+
+$borders: (
+  "none": none,
+  "black": 1px solid black,
+  "white": 1px solid white,
+);
+
+$outlines: (
+  "none": none,
+  "black": 1px solid black,
+  "white": 1px solid white,
+);
+
+///////////////////////////////////////////////////////////////////////////////
+//////////////////////// EFFECTS
+///////////////////////////////////////////////////////////////////////////////
+
+$box-shadows: (
+  "none": none,
+  "inner": inset 0px 2px 4px 0px rgba(0, 0, 0, 0.05),
+  "2xs": 0px 1px 2px 0px rgba(0, 0, 0, 0.05),
+  "xs": (0px 1px 3px 0px rgba(0, 0, 0, 0.1), 0px 1px 2px 0px rgba(0, 0, 0, 0.05)),
+  "sm": (0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.05)),
+  "md": (0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -2px rgba(0, 0, 0, 0.05)),
+  "lg": (0px 20px 25px -5px rgba(0, 0, 0, 0.1), 0px 10px 10px -5px rgba(0, 0, 0, 0.05)),
+  "xl": 0px 25px 50px -12px rgba(0, 0, 0, 0.2),
+  "2xl": 0 10px 50px 0 rgba(0, 0, 0, 0.1),
+);
+
+$opacities: (
+  "0": 0,
+  "50": 0.05,
+  "100": 0.1,
+  "200": 0.2,
+  "400": 0.4,
+  "500": 0.5,
+  "600": 0.6,
+  "800": 0.8,
+  "1000": 1,
+);
+
+///////////////////////////////////////////////////////////////////////////////
+//////////////////////// TRANSITIONS AND ANIMATIONS
+///////////////////////////////////////////////////////////////////////////////
+
+$transition-properties: (
+  "": (background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter),
+  "all": all,
+  "none": none,
+  "colors": (background-color, border-color, color, fill, stroke),
+  "opacity": opacity,
+  "shadow": box-shadow,
+  "transform": transform,
+);
+
+$transition-durations: (
+  "0": 0,
+  "75": 75ms,
+  "100": 100ms,
+  "150": 150ms,
+  "200": 200ms,
+  "300": 300ms,
+  "500": 500ms,
+  "700": 700ms,
+  "1000": 1s,
+);
+
+$transition-timing-functions: (
+  // -> ~ linear
+  "linear": cubic-bezier(0, 0, 1, 1),
+  // normal at the beginning, slow at the end -> ~ ease
+  "normal": cubic-bezier(0.25, 0.1, 0.25, 1),
+  // slow at the beginning and slow at the end
+  "standard-curve": cubic-bezier(0.4, 0.0, 0.2, 1),
+  // fast/abrupt at the beginning, slow at the end -> ~ ease-out
+  // Good for when things are moving in
+  "deceleration-curve": cubic-bezier(0.0, 0.0, 0.2, 1),
+  // slow at the beginning, fast/abrupt at the end -> ~ ease-in
+  // Good for when things are moving out
+  "acceleration-curve": cubic-bezier(0.4, 0.0, 1, 1),
+  // normal/slow at the beginning, normal/fast at the end -> ~ ease-in-out
+  "sharp-curve": cubic-bezier(0.4, 0.0, 0.6, 1),
+  // Starts slow moving in the opposite direction of where the end state is,
+  // then goes fast and surpasses the end state, and finally returns slowly to the end state
+  "elastic": cubic-bezier(0.68, -0.6, 0.32, 1.6),
+  // Starts normal/fast at the beginning and surpasses the end state.
+  // Then returns slowly to the end state.
+  "backward": cubic-bezier(0.18, 0.89, 0.32, 1.15),
+);
+
+///////////////////////////////////////////////////////////////////////////////
+//////////////////////// INTERACTIVITY
+///////////////////////////////////////////////////////////////////////////////
+
+$appearances: (
+  "none": none,
+);
+
+$cursors: (
+  "auto": auto,
+  "default": default,
+  "pointer": pointer,
+  "wait": wait,
+  "text": text,
+  "move": move,
+  "help": help,
+  "not-allowed": not-allowed,
+);
+
+$pointer-events: (
+  "none": none,
+  "auto": auto,
+);
+
+$user-selects: (
+  "none": none,
+  "auto": auto,
+  "text": text,
+  "all": all,
+);

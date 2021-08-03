@@ -1,0 +1,119 @@
+@use "sass:list";
+@use "sass:map";
+
+/**
+ * Adds flexbox
+ */
+@mixin flex(
+  $display: flex,
+  $direction: row,
+  $align: stretch,
+  $justify: flex-start,
+  $wrap: nowrap,
+) {
+  display: $display;
+
+  @if ($direction != row) {
+    flex-direction: $direction;
+  }
+
+  @if ($align != stretch) {
+    align-items: $align;
+  }
+
+  @if ($justify != flex-start) {
+    justify-content: $justify;
+  }
+
+  @if ($wrap != nowrap) {
+    flex-wrap: $wrap;
+  }
+}
+
+/**
+ * Flexbox responsive
+ */
+@mixin responsive-flex($sizes, $gap: 0) {
+  display: flex;
+  flex-wrap: wrap;
+
+  @if ($gap != 0) {
+    @include gap($gap);
+  }
+
+  @each $size in $sizes {
+    $index: list.index($sizes, $size);
+
+    :nth-child(#{$index}) {
+      flex: 1 1 $size;
+    }
+  }
+}
+
+/**
+ * Grid responsive mixin
+ */
+@mixin responsive-grid($min-width: 1fr, $min-height: 0, $gap: 1rem) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax($min-width, 1fr));
+  grid-template-rows: minmax($min-height, auto);
+  grid-auto-flow: dense;
+  gap: $gap;
+}
+
+/**
+ * CSS Gap polyfill
+ */
+@mixin gap($value) {
+  // TODO (Jordi M.): Keep an eye on the native support (mainly old Safari versions).
+  //  See: https://caniuse.com/?search=flexbox%20gap
+
+  // It works by emulating flex gap by adding paddings to each child element
+  // and applying a negative margin to the container.
+
+  // We can't use `@supports (gap: #{$value}) { gap: $value; }` because browsers do
+  // support `gap` property in grid layouts.
+
+  @if ($value != auto) {
+    // flexbox container styles
+    margin-left: -#{$value};
+    margin-bottom: -#{$value};
+
+    // flexbox children styles
+    & > * {
+      padding-left: $value;
+      padding-bottom: $value;
+    }
+  }
+}
+
+/**
+ * Media query on a flexbox container.
+ *
+ * Changes between a flex row layout to a flex column layout based on the size of the flexbox container.
+ *
+ * TODO (Jordi M.): Keep an eye on the native support for container queries (the specification is being written):
+ *  See: https://css.oddbird.net/rwd/query/explainer/
+ *  Chromium (Blink) are already implementing it: https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/css/container_query.h
+ *
+ * @param width - The child width when we're in flexbox row layout (in column layout it will be the entire width of the parent)
+ * @param container-breakpoint - Parent width where to trigger the change from row layout to column layout
+ */
+@mixin container-query($width, $container-breakpoint) {
+  $container-width: 100%; // -> % are relative to the parent -> refers to the flexbox container width
+
+  // max() support: https://caniuse.com/?search=max()%20CSS
+
+  // CASE 1: `$container-width` is greater than or equal to `$container-breakpoint`:
+  //    $container-breakpoint - $container-width <= 0 -> we use `$width` for flex-basis (we stay in a flex row layout)
+
+  // CASE 2: `$container-width` is lower than `$container-breakpoint`:
+  //    $container-breakpoint - $container-width > 0 -> We multiply it to a big number
+  //    -> flex-basis now is equal to a really big number (flexbox items want to occupy the entire parent width)
+  //    -> flex column layout triggers where each child occupies the entire parent width
+
+  // We use decimals for better pixel precision in the breakpoint
+
+  flex: 1 1 max(#{$width}, calc((#{$container-breakpoint} - #{$container-width}) * 99999.999));
+  max-width: 100%;
+}

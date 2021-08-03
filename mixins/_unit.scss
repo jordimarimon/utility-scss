@@ -1,0 +1,17 @@
+@use "sass:math";
+
+$_browser-context: 16; // Default
+
+/**
+ * Converts a pixel value to a rem value.
+ */
+@function rem($val) {
+  @return #{math.div($val, $_browser-context)}rem;
+}
+
+/**
+ * Converts a pixel value to an em value.
+ */
+@function em($val, $context: $_browser-context) {
+  @return #{math.div($val, $context)}em;
+}

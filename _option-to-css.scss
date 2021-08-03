@@ -1,0 +1,364 @@
+/**
+ * Maps each configuration option to the corresponding CSS styles that it will generate.
+ *
+ * The SCSS map has the following structure:
+ *
+ *    "<option-name-defined-in-the-configuration>": {
+ *
+ *        "<utility-class-prefix>": List of CSS properties to style.
+ *
+ *    }
+ */
+$map: (
+
+  ///////////////////////////////////////////////////////////////////////////////
+  //////////////////////// LAYOUT
+  ///////////////////////////////////////////////////////////////////////////////
+
+  "displays": (
+    "": (display),
+  ),
+
+  "floats": (
+    "float": (float),
+  ),
+
+  "clears": (
+    "clear": (clear),
+  ),
+
+  "isolations": (
+    "isolate": (isolation),
+  ),
+
+  "object-fits": (
+    "object": (object-fit),
+  ),
+
+  "object-positions": (
+    "object": (object-position),
+  ),
+
+  "overflows": (
+    "overflow": (overflow),
+    "overflow-x": (overflow-x),
+    "overflow-y": (overflow-y),
+  ),
+
+  "overflow-webkit": (
+    "overflow": (-webkit-overflow-scrolling),
+  ),
+
+  "overscroll-behaviours": (
+    "overscroll": (overscroll-behavior),
+    "overscroll-x": (overscroll-behavior-x),
+    "overscroll-y": (overscroll-behavior-y),
+  ),
+
+  "positions": (
+    "": (position),
+  ),
+
+  "offsets": (
+    "top": (top),
+    "right": (right),
+    "bottom": (bottom),
+    "left": (left),
+    "inset": (top, right, bottom, left),
+    "inset-x": (right, left),
+    "inset-y": (top, bottom),
+  ),
+
+  "visibilities": (
+    "": (visibility),
+  ),
+
+  "z-indexes": (
+    "z": (z-index),
+  ),
+
+  ///////////////////////////////////////////////////////////////////////////////
+  //////////////////////// FLEXBOX AND GRID
+  ///////////////////////////////////////////////////////////////////////////////
+
+  "flex-directions": (
+    "flex": (flex-direction),
+  ),
+
+  "flex-wraps": (
+    "flex": (flex-wrap),
+  ),
+
+  "flex": (
+    "flex": (flex),
+  ),
+
+  "flex-grows": (
+    "flex-grow": (flex-grow),
+  ),
+
+  "flex-shrinks": (
+    "flex-shrink": (flex-shrink),
+  ),
+
+  "flex-orders": (
+    "order": (order),
+  ),
+
+  "grid-templates": (
+    "grid-cols": (grid-template-columns),
+    "grid-rows": (grid-template-rows),
+  ),
+
+  "grid-spans": (
+    "grid-col-span": (grid-column),
+    "grid-row-span": (grid-row),
+  ),
+
+  "grid-extremes": (
+    "col-start": (grid-column-start),
+    "col-end": (grid-column-end),
+    "row-start": (grid-row-start),
+    "row-end": (grid-row-end),
+  ),
+
+  "grid-auto-flows": (
+    "grid-flow": (grid-auto-flow),
+  ),
+
+  "grid-auto-axis": (
+    "auto-cols": (grid-auto-columns),
+    "auto-rows": (grid-auto-rows),
+  ),
+
+  "contents": (
+    "justify": (justify-content),
+    "content": (align-content),
+  ),
+
+  "justify-items": (
+    "justify-items": (justify-items),
+    "justify-self": (justify-self),
+    "place-items": (place-items),
+    "place-self": (place-self),
+  ),
+
+  "align-items": (
+    "items": (align-items),
+    "self": (align-self),
+  ),
+
+  "place-contents": (
+    "place-content": (place-content),
+  ),
+
+  ///////////////////////////////////////////////////////////////////////////////
+  //////////////////////// SPACINGS
+  ///////////////////////////////////////////////////////////////////////////////
+
+  "spacings": (
+    "gap": (gap),
+    "gap-x": (column-gap),
+    "gap-y": (row-gap),
+
+    "p": (padding),
+    "px": (padding-left, padding-right),
+    "py": (padding-top, padding-bottom),
+    "pt": (padding-top),
+    "pr": (padding-right),
+    "pb": (padding-bottom),
+    "pl": (padding-left),
+
+    "m": (margin),
+    "mx": (margin-left, margin-right),
+    "my": (margin-top, margin-bottom),
+    "mt": (margin-top),
+    "mr": (margin-right),
+    "mb": (margin-bottom),
+    "ml": (margin-left),
+  ),
+
+  ///////////////////////////////////////////////////////////////////////////////
+  //////////////////////// SIZING
+  ///////////////////////////////////////////////////////////////////////////////
+
+  "widths": (
+    "w": (width),
+  ),
+
+  "min-widths": (
+    "min-w": (min-width),
+  ),
+
+  "max-widths": (
+    "max-w": (max-width),
+  ),
+
+  "heights": (
+    "h": (height),
+  ),
+
+  "min-heights": (
+    "min-h": (min-height),
+  ),
+
+  "max-heights": (
+    "max-h": (max-height),
+  ),
+
+  ///////////////////////////////////////////////////////////////////////////////
+  //////////////////////// TYPOGRAPHY
+  ///////////////////////////////////////////////////////////////////////////////
+
+  "font-sizes": (
+    "fs": (font-size),
+  ),
+
+  "font-weights": (
+    "fw": (font-weight),
+  ),
+
+  "letter-spacings": (
+    "ls": (letter-spacing),
+  ),
+
+  "line-heights": (
+    "lh": (line-height),
+  ),
+
+  "font-styles": (
+    "": (font-style),
+  ),
+
+  "list-style-types": (
+    "list": (list-style-type),
+  ),
+
+  "list-style-positions": (
+    "list": (list-style-position),
+  ),
+
+  "text-alignments": (
+    "text": (text-align),
+  ),
+
+  "text-colors": (
+    "text": (color)
+  ),
+
+  "text-decorations": (
+    "": (text-decoration),
+  ),
+
+  "text-transforms": (
+    "": (text-transform),
+  ),
+
+  "text-overflows": (
+    "overflow": (text-overflow),
+  ),
+
+  "vertical-alignments": (
+    "align": (vertical-align),
+  ),
+
+  "whitespaces": (
+    "whitespace": (white-space),
+  ),
+
+  "word-breaks": (
+    "break": (word-break),
+  ),
+
+  "overflow-wraps": (
+    "wrap": (overflow-wrap),
+  ),
+
+  ///////////////////////////////////////////////////////////////////////////////
+  //////////////////////// BACKGROUNDS
+  ///////////////////////////////////////////////////////////////////////////////
+
+  "background-colors": (
+    "bg": (background-color),
+  ),
+
+  "background-clips": (
+    "bg": (background-clip),
+  ),
+
+  "background-positions": (
+    "bg": (background-position),
+  ),
+
+  "background-repeats": (
+    "bg": (background-repeat),
+  ),
+
+  "background-sizes": (
+    "bg": (background-size),
+  ),
+
+  ///////////////////////////////////////////////////////////////////////////////
+  //////////////////////// BORDERS
+  ///////////////////////////////////////////////////////////////////////////////
+
+  "border-radius": (
+    "rounded": (border-radius),
+  ),
+
+  "borders": (
+    "border": (border),
+  ),
+
+  "outlines": (
+    "outline": (outline),
+  ),
+
+  ///////////////////////////////////////////////////////////////////////////////
+  //////////////////////// EFFECTS
+  ///////////////////////////////////////////////////////////////////////////////
+
+  "box-shadows": (
+    "shadow": (box-shadow),
+  ),
+
+  "opacities": (
+    "opacity": (opacity),
+  ),
+
+  ///////////////////////////////////////////////////////////////////////////////
+  //////////////////////// TRANSITIONS AND ANIMATIONS
+  ///////////////////////////////////////////////////////////////////////////////
+
+  "transition-properties": (
+    "transition": (transition-property),
+  ),
+
+  "transition-durations":  (
+    "duration": (transition-duration),
+  ),
+
+  "transition-timing-functions": (
+    "ease": (transition-timing-function),
+  ),
+
+  ///////////////////////////////////////////////////////////////////////////////
+  //////////////////////// INTERACTIVITY
+  ///////////////////////////////////////////////////////////////////////////////
+
+  "appearances": (
+    "appearance": (appearance),
+  ),
+
+  "cursors": (
+    "cursor": (cursor),
+  ),
+
+  "pointer-events": (
+    "pointer-events": (pointer-events),
+  ),
+
+  "user-selects": (
+    "select": (user-select),
+  ),
+);

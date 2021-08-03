@@ -1,0 +1,26 @@
+@use "sass:map";
+
+/**
+ * Creates the prefix for responsive utility classes
+ */
+@function create($breakpoint, $class-name) {
+  @return #{$breakpoint}\:#{"" + $class-name};
+}
+
+/**
+ * Media query that applies for screen sizes lower or equal than the provided breakpoint.
+ */
+@mixin media-down($breakpoint) {
+  @media screen and (max-width: #{$breakpoint}) {
+    @content;
+  }
+}
+
+/**
+ * Media query that applies for screen sizes bigger than the provided breakpoint.
+ */
+@mixin media-up($breakpoint) {
+  @media screen and (min-width: #{$breakpoint}) {
+    @content;
+  }
+}
